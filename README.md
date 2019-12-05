@@ -1,41 +1,11 @@
-Tutorial 04 - Mailboxes
-=======================
+#Baremetal Raspberry Pi 3 Blinking ACT LED with C
+> Project 5 of DEIE TKEE163251 Embedded Operating System Course, December 2019.
 
-Before we could go on with UART0, we need mailboxes. So in this tutorial we introduce the mailbox interface.
-We'll use it to query the board's serial number and print that out on UART1.
+##Reference
+This project is a modified code from [Bare metal Raspberry Pi 3 tutorials](https://github.com/bztsrc/raspi3-tutorial)
+* 00_crosscompiler
+* 04_mailboxes
+* 07_delays
 
-NOTE: qemu does not redirect UART1 to terminal by default, only UART0, so you have to use `-serial null -serial stdio`.
-
-Uart.h, uart.c
---------------
-
-`uart_hex(d)` prints out a binary value in hexadecimal format.
-
-Mbox.h, mbox.c
---------------
-
-The mailbox interface. First we fill up the message in `mbox` array, then we call
-`mbox_call(ch)` to pass it to the GPU, specifying the mailbox channel.
-In this example we have used the [property channel](https://github.com/raspberrypi/firmware/wiki/Mailbox-property-interface),
-which requires the message to be formatted as:
-
-```
- 0. size of the message in bytes, (x+1)*4
- 1. MBOX_REQUEST magic value, indicates request message
- 2-x. tags
- x+1. MBOX_TAG_LAST magic value, indicates no more tags
-```
-
-Where each tag looks like:
-
-```
- n+0. tag identifier
- n+1. value buffer size in bytes
- n+2. must be zero
- n+3. optional value buffer
-```
-
-Main
-----
-
-We query the board's serial number and then we display it on the serial console.
+##Demo
+Blinking Raspberry Pi 3 ACT LED [demo video](https://drive.google.com/open?id=13cKpBN9kGo6oJ28IL2D11L1nm-tc1HEi)
